@@ -16,6 +16,7 @@ DEPS	:= $(SRCS:.c=.d)
 .PHONY: all clean
 
 all: $(TARGET)
+	rm -f $(OBJS) $(DEPS)
 
 $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
