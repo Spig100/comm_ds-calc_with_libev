@@ -1,10 +1,14 @@
 CC	:= gcc
-CFLAGS	:= -Wall -MMD -MP
-LDFLAGS	:= LDFLAGS
+LDFLAGS	:= 
 
 TARGET	:= app
 
-SRCS	:= $(wildcard *.c)
+SRC_DIR	:= src
+SRCS	:= $(wildcard $(SRC_DIR)/*.c)
+
+INC_DIR	:= inc
+
+CFLAGS	:= -Wall -MMD -MP -I$(INC_DIR)
 
 OBJS	:= $(SRCS:.c=.o)
 DEPS	:= $(SRCS:.c=.d)
