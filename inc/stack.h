@@ -15,5 +15,6 @@ bool isEmpty (const stack * const stackPtr);
 bool isOverflow (const stack * const stackPtr);
 uint8_t pop (stack * const stackPtr);
 uint8_t push (stack * const stackPtr, int8_t x);
+int8_t top (const stack * const stackPtr);
 
 #endif

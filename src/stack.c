@@ -27,3 +27,7 @@ uint8_t push (stack * const stackPtr, int8_t x){
 	stackPtr->content[++ stackPtr->top] = x;
 	return 0;
 }
+
+int8_t top (const stack * const stackPtr){
+	return stackPtr->top;
+}
