@@ -9,7 +9,12 @@
 typedef struct {
 	int8_t top;
 	int8_t content[STACK_MAX_SIZE];
-} stack;
+} int_stack;
+
+typedef struct {
+	int8_t top;
+	char content[STACK_MAX_SIZE];
+}
 
 bool isEmpty (const stack * const stackPtr);
 bool isOverflow (const stack * const stackPtr);
