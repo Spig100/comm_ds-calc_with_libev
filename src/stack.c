@@ -3,18 +3,18 @@
 #include <stdint.h>
 #include <stdio.h>
 
-bool isEmpty (const stack * const stackPtr) {
+bool int_isEmpty (const int_stack * const stackPtr) {
 	if (stackPtr->top == -1) return true;
 	return false;
 }
 
-bool isOverflow (const stack * const stackPtr){
+bool int_isOverflow (const int_stack * const stackPtr){
 	if (stackPtr->top == STACK_MAX_SIZE-1) return true;
 	return false;
 }
 
-int8_t int_stack_pop (stack * const stackPtr){
-	if (isEmpty(stackPtr)){
+int8_t int_stack_pop (int_stack * const stackPtr){
+	if (int_isEmpty(stackPtr)){
 		printf("DEBUG: stack underflow.");
 		return -1;
 	}
@@ -22,8 +22,8 @@ int8_t int_stack_pop (stack * const stackPtr){
 	return result;
 }
 
-uint8_t int_stack_push (stack * const stackPtr, int8_t x){
-	if (isOverflow(stackPtr)) {
+uint8_t int_stack_push (int_stack * const stackPtr, int8_t x){
+	if (int_isOverflow(stackPtr)) {
 		printf("DEBUG: stack overflow.");
 		return 1;
 	}
@@ -31,7 +31,7 @@ uint8_t int_stack_push (stack * const stackPtr, int8_t x){
 	return 0;
 }
 
-int8_t int_stack_top (const stack * const stackPtr){
+int8_t int_stack_top (const char_stack * const stackPtr){
 	return stackPtr->top;
 
 }
@@ -46,8 +46,8 @@ bool char_isOverflow (const char_stack * const stackPtr){
 	return false;
 }
 
-uint8_t char_pop (char_stack * const stackPtr){
-	if (isEmpty(stackPtr)){
+char char_pop (char_stack * const stackPtr){
+	if (char_isEmpty(stackPtr)){
 		printf("DEBUG: stack underflow.");
 		return -1;
 	}
@@ -56,7 +56,7 @@ uint8_t char_pop (char_stack * const stackPtr){
 }
 
 uint8_t char_push (char_stack * const stackPtr, char x){
-	if (isOverflow(stackPtr)) {
+	if (char_isOverflow(stackPtr)) {
 		printf("DEBUG: stack overflow.");
 		return 1;
 	}
@@ -64,6 +64,6 @@ uint8_t char_push (char_stack * const stackPtr, char x){
 	return 0;
 }
 
-char char_top (const int_stack * const stackPtr){
+char char_top (const char_stack * const stackPtr){
 	return stackPtr->top;
 }
