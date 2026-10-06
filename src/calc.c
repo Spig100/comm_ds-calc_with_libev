@@ -67,12 +67,13 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
                 case '-':
                     if(isMD){
                         calculate(&operand, &operator);
+                        isMD = false;
                     } 
                     break;
                 case '*':
                 case '/':
-                    isMD = true;
-                    
+                    if (!isMD) isMD = true;
+                    calculate(&operand, &operator);
                     break;
                 case ' ':
                     break;
