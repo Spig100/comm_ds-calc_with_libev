@@ -46,11 +46,13 @@ Operation get_operation (char opr){
 void calculate(int_stack * const operand, char_stack * const operator){
     int8_t a;
     int8_t b;
-    char opr;
-    while (!char_isEmpty(operator)){
-        
+    Operation operate;
+    while (!char_stack_isEmpty(operator)){
+        b = int_stack_pop(operand);
+        a = int_stack_pop(operand);
+        operate = get_operation(char_stack_pop(operator));
+        int_stack_push(operand, operate(a,b));
     }
-    
 }
 
 static void calc_cb (EV_P_ ev_io *w, int revents){
