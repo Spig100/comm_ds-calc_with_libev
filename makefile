@@ -1,7 +1,7 @@
 CC	:= gcc
 LDFLAGS	:= -lev 
 
-TARGET	:= app
+TARGET	:= calculator
 
 SRC_DIR	:= src
 SRCS	:= $(wildcard $(SRC_DIR)/*.c)
@@ -15,7 +15,7 @@ DEPS	:= $(SRCS:.c=.d)
 
 .PHONY: all clean
 
-calculator: $(TARGET)
+all: $(TARGET)
 	rm -f $(OBJS) $(DEPS)
 
 $(TARGET): $(OBJS)

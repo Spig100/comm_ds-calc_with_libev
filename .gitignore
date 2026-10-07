@@ -1,4 +1,4 @@
-app
+calculator
 *.o
 *.d
 *.swp
