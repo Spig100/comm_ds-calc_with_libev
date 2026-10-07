@@ -1,5 +1,5 @@
 CC	:= gcc
-LDFLAGS	:= 
+LDFLAGS	:= -lev 
 
 TARGET	:= app
 
@@ -15,7 +15,7 @@ DEPS	:= $(SRCS:.c=.d)
 
 .PHONY: all clean
 
-all: $(TARGET)
+calculator: $(TARGET)
 	rm -f $(OBJS) $(DEPS)
 
 $(TARGET): $(OBJS)
@@ -27,4 +27,4 @@ $(TARGET): $(OBJS)
 -include $(DEPS)
 
 clean:
-	rm -f $(OBJS) $(DEPS) $(TARGET)
+	rm -f $(OBJS) $(DEPS) $(TARGET) *.swp

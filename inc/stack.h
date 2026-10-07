@@ -4,17 +4,35 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define STACK_MAX_SIZE 256
+#define STACK_MAX_SIZE 128
+
+/* In this project, the first procedure I'd like to use is: Seperated stack types for char and int.
+ * Probably we'll have another approach to create a generical stack?
+ * */
+
+/* Stack for integer */
 
 typedef struct {
 	int8_t top;
-	int8_t content[STACK_MAX_SIZE];
-} stack;
+	int32_t content[STACK_MAX_SIZE];
+} int_stack;
 
-bool isEmpty (const stack * const stackPtr);
-bool isOverflow (const stack * const stackPtr);
-uint8_t pop (stack * const stackPtr);
-uint8_t push (stack * const stackPtr, int8_t x);
-int8_t top (const stack * const stackPtr);
+bool int_stack_isEmpty (const int_stack * const stackPtr);
+bool int_stack_isOverflow (const int_stack * const stackPtr);
+int32_t int_stack_pop (int_stack * const stackPtr);
+uint8_t int_stack_push (int_stack * const stackPtr, int32_t x);
+int32_t int_stack_top (const int_stack * const stackPtr);
+
+/* Stack for charactor) */
+typedef struct {
+	int8_t top;
+	char content[STACK_MAX_SIZE];
+} char_stack;
+
+bool char_stack_isEmpty (const char_stack * const stackPtr);
+bool char_stack_isOverflow (const char_stack * const stackPtr);
+char char_stack_pop (char_stack * const stackPtr);
+uint8_t char_stack_push (char_stack * const stackPtr, char x);
+char char_stack_top (const char_stack * const stackPtr);
 
 #endif
