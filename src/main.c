@@ -20,7 +20,8 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
                     if(isMD){
                         calculate(&operand, &operator);
                         isMD = false;
-                    } 
+                    }
+                    int_stack_pop;
                     break;
                 case '*':
                 case '/':
@@ -35,6 +36,8 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
             }
         }
     }
+    printf("Result\t= %.2f\n\n", int_stack_pop(&operand));
+    printf("Expression\t> ");
 }
 
 int main(){
@@ -45,6 +48,9 @@ int main(){
     ev_io_start(EV_A_ &calc_watcher); /* EV_A_ marco is used to send the loop. we've declared.*/
 
     /* TODO: Finish the timer function.*/
+    
+    printf("Expression\t> ");
+    fflush(stdout);
 
     ev_run(EV_A_ 0);
 
