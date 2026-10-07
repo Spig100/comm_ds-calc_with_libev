@@ -55,32 +55,3 @@ void calculate(int_stack * const operand, char_stack * const operator){
     }
 }
 
-static void calc_cb (EV_P_ ev_io *w, int revents){
-    char_stack operator;
-    int_stack operand;
-    if (revents & EV_READ){
-        char ch;
-        bool isMD = false;
-        while (read(w->fd, &ch, 1) > 0){
-            switch(ch){
-                case '+':
-                case '-':
-                    if(isMD){
-                        calculate(&operand, &operator);
-                        isMD = false;
-                    } 
-                    break;
-                case '*':
-                case '/':
-                    if (!isMD) isMD = true;
-                    calculate(&operand, &operator);
-                    break;
-                case ' ':
-                    break;
-                default:
-                    break;
-                    
-            }
-        }
-    }
-}

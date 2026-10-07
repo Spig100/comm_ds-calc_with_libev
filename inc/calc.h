@@ -15,6 +15,4 @@ Operation get_operation (char opr);
 
 void calculate(int_stack * const operand, char_stack * const operators);
 
-static void calc_cb(EV_P_ ev_io *w, int revents);
-
 #endif

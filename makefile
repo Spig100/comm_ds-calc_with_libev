@@ -1,5 +1,5 @@
 CC	:= gcc
-LDFLAGS	:= 
+LDFLAGS	:= -lev 
 
 TARGET	:= app
 
