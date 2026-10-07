@@ -15,7 +15,7 @@ DEPS	:= $(SRCS:.c=.d)
 
 .PHONY: all clean
 
-all: $(TARGET)
+calculator: $(TARGET)
 	rm -f $(OBJS) $(DEPS)
 
 $(TARGET): $(OBJS)
