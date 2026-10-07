@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ev.h>
 #include <unistd.h>
+#include "main.h"
 #include "calc.h"
 
 ev_io calc_watcher;
@@ -8,6 +9,20 @@ ev_timer timer_watcher;
 
 
 static void calc_cb (EV_P_ ev_io *w, int revents){
+    
+    /* Because of the design of libev, we need to make the input be processed here. 
+     * (ev_io will not handle the input detection, e.g., the "enter pressed" event)
+     * 
+     * So we need to:
+     * - Create a buffer to save the current input.
+     * - Make a logic to detect if '\n' is input or not.*/
+    
+    char buf[STRING_BUFFER_SIZE];
+
+    if (fgets(buf, sizeof(buf), stdin) == NULL)
+        return;
+    
+    /*
     char_stack operator;
     int_stack operand;
     if (revents & EV_READ){
@@ -36,7 +51,9 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
             }
         }
     }
-    printf("Result\t= %.2f\n\n", int_stack_pop(&operand));
+    */
+
+    printf("Result\t= %.2f\n\n", calculate(buf));
     printf("Expression\t> ");
 }
 

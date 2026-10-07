@@ -3,6 +3,8 @@
 
 #include <ev.h>
 
+#define STRING_BUFFER_SIZE 256
+
 static void calc_cb (EV_P_ ev_io *w, int revents);
 
 #endif
