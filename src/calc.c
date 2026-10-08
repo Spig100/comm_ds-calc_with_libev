@@ -53,12 +53,16 @@ void flush_operator(num_stack * const operand, char_stack * const operator){
 }
 
 double calculate(const char * const expression){
-    char_stack operator;
-    num_stack operand;
+
+    /* TODO: Finish the calculation function with stack (direct infix).
+     * */
 
     uint32_t index = 0;
     
     bool isMD = false;
+    
+    /* FIXME: Fix the infinity loop problem.
+     * */
 
     while(expression[index] != '\0'){
         switch(expression[index]){
@@ -74,7 +78,9 @@ double calculate(const char * const expression){
         }
     }
 
-    return num_stack_top(&operand);
+    return 67.67;
+
+    // return num_stack_top(&operand);
 
 }
 
