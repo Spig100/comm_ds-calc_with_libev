@@ -14,14 +14,14 @@
 
 typedef struct {
 	int8_t top;
-	int32_t content[STACK_MAX_SIZE];
-} int_stack;
+	double content[STACK_MAX_SIZE];
+} num_stack;
 
-bool int_stack_isEmpty (const int_stack * const stackPtr);
-bool int_stack_isOverflow (const int_stack * const stackPtr);
-int32_t int_stack_pop (int_stack * const stackPtr);
-uint8_t int_stack_push (int_stack * const stackPtr, int32_t x);
-int32_t int_stack_top (const int_stack * const stackPtr);
+bool num_stack_isEmpty (const num_stack * const stackPtr);
+bool num_stack_isOverflow (const num_stack * const stackPtr);
+double num_stack_pop (num_stack * const stackPtr);
+uint8_t num_stack_push (num_stack * const stackPtr, int32_t x);
+double num_stack_top (const num_stack * const stackPtr);
 
 /* Stack for charactor) */
 typedef struct {

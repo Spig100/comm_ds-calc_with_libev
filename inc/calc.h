@@ -13,6 +13,7 @@ typedef double (*Operation) (double, double);
 
 Operation get_operation (char opr);
 
-void calculate(int_stack * const operand, char_stack * const operators);
+void flush_operator (num_stack * operand, char_stack * operater);
+double calculate(const char * const expression);
 
 #endif

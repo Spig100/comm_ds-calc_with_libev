@@ -43,15 +43,46 @@ Operation get_operation (char opr){
     }
 }
 
-void calculate(int_stack * const operand, char_stack * const operator){
-    int8_t a;
-    int8_t b;
-    Operation operate;
+void flush_operator(num_stack * const operand, char_stack * const operator){
+    int a, b;
     while (!char_stack_isEmpty(operator)){
-        b = int_stack_pop(operand);
-        a = int_stack_pop(operand);
-        operate = get_operation(char_stack_pop(operator));
-        int_stack_push(operand, operate(a,b));
+        b = num_stack_pop(operand);
+        a = num_stack_pop(operand);
+        num_stack_push(operand, get_operation(char_stack_pop(operator))(a, b));
     }
+}
+
+double calculate(const char * const expression){
+
+    /* TODO: Finish the calculation function with stack (direct infix).
+     * */
+
+    uint32_t index = 0;
+    
+    bool isMD = false;
+    
+    /* FIXME: Fix the infinity loop problem.
+     * */
+
+    while(expression[index] != '\0'){
+        switch(expression[index]){
+            case ' ':
+                break;
+            case '+':
+            case '-':
+                if (isMD) 
+                break;
+            case '*':
+            case '/':
+                break;
+        }
+
+        index++;
+    }
+
+    return 67.67;
+
+    // return num_stack_top(&operand);
+
 }
 
