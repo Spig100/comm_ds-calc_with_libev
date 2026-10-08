@@ -76,6 +76,8 @@ double calculate(const char * const expression){
             case '/':
                 break;
         }
+
+        index++;
     }
 
     return 67.67;

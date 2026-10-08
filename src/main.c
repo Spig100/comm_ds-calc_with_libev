@@ -33,14 +33,33 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
      *
      * */
     
-    if (strchr(buf, '\n') != NULL){ 
-        printf("Debug: CALLBACK SUCCESS.\n");
+    if (strchr(buf, '\n') != NULL){
+        
+        /* `strcspn` will return the array index of the aspect charector.
+         *
+         * Note that strchr will return the "memory address".
+         *
+         * This is a function I've asked from ChatGPT on Oct. 8.
+         * */
+
+        buf[strcspn(buf, "\n")] = '\0'; // Replacing '\n' for comparision.
+
+        // printf("Debug: CALLBACK SUCCESS.\n");
+        
+        // printf("Debug: String input - %s\n", buf);
+
+        if ( (strcmp(buf, "exit") == 0) || (strcmp(buf, "quit") == 0)){
+            // printf("DEBUG: Process termiated by user.\n");
+            ev_io_stop(EV_A_ w);
+            ev_loop(EV_A_ EVBREAK_ALL);
+            return;
+        }
+
         printf("Result\t= %.2f\n\n", calculate(buf));
         printf("Expression\t> ");
         fflush(stdout);
 
     }
-    
 
 }
 
