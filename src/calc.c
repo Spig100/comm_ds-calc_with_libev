@@ -1,10 +1,12 @@
-#include "calc.h"
-#include "stack.h"
+#include "../inc/calc.h"
+#include "../inc/stack.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include <math.h>
 #include <ev.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 double add (double x, double y){
     return x + y;
@@ -57,6 +59,9 @@ double calculate(const char * const expression){
     /* TODO: Finish the calculation function with stack (direct infix).
      * */
 
+    num_stack operand;
+    char_stack operator;
+
     uint32_t index = 0;
     
     bool isMD = false;
@@ -66,21 +71,38 @@ double calculate(const char * const expression){
 
     while(expression[index] != '\0'){
         switch(expression[index]){
+            
             case ' ':
                 break;
             case '+':
             case '-':
-                if (isMD) 
-                break;
+                if (isMD){
+                    flush_operator(&operand, &operator);
+                } 
             case '*':
             case '/':
+                char_stack_push(&operator, expression[index]);
                 break;
+            default:
+                char num_buf[MAX_NUM_STR_LENGTH];
+                int num_length = 0;
+                while(isdigit(expression[index])){
+                    num_buf[num_length] = expression[index + num_length];
+                    num_length++;
+                }
+                num_stack_push(&operand, atoi(num_buf));
+                index += num_length;
+                break;
+                
         }
 
+        flush_operator(&operand, &operator);
+
         index++;
+    
     }
 
-    return 67.67;
+    return num_stack_top(&operand);
 
     // return num_stack_top(&operand);
 

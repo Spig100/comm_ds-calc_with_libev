@@ -1,6 +1,8 @@
 #ifndef CALC_H
 #define CALC_H
 
+#define MAX_NUM_STR_LENGTH 4294967296
+
 #include <ev.h>
 #include "stack.h"
 

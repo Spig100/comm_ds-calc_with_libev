@@ -22,7 +22,7 @@ double num_stack_pop (num_stack * const stackPtr){
 	return result;
 }
 
-uint8_t num_stack_push (num_stack * const stackPtr, int32_t x){
+uint8_t num_stack_push (num_stack * const stackPtr, double x){
 	if (num_stack_isOverflow(stackPtr)) {
 		printf("DEBUG: stack overflow.");
 		return 1;

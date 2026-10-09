@@ -20,7 +20,7 @@ typedef struct {
 bool num_stack_isEmpty (const num_stack * const stackPtr);
 bool num_stack_isOverflow (const num_stack * const stackPtr);
 double num_stack_pop (num_stack * const stackPtr);
-uint8_t num_stack_push (num_stack * const stackPtr, int32_t x);
+uint8_t num_stack_push (num_stack * const stackPtr, double x);
 double num_stack_top (const num_stack * const stackPtr);
 
 /* Stack for charactor) */
