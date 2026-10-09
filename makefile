@@ -8,7 +8,7 @@ SRCS	:= $(wildcard $(SRC_DIR)/*.c)
 
 INC_DIR	:= inc
 
-CFLAGS	:= -Wall -MMD -MP -I$(INC_DIR)
+CFLAGS	:= -Wall -MMD -MP -I$(INC_DIR) -g
 
 OBJS	:= $(SRCS:.c=.o)
 DEPS	:= $(SRCS:.c=.d)

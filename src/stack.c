@@ -3,6 +3,10 @@
 #include <stdint.h>
 #include <stdio.h>
 
+void num_stack_init (num_stack * const stackPtr){
+    stackPtr->top = -1;
+}
+
 bool num_stack_isEmpty (const num_stack * const stackPtr) {
 	if (stackPtr->top == -1) return true;
 	return false;
@@ -33,6 +37,10 @@ uint8_t num_stack_push (num_stack * const stackPtr, double x){
 
 double num_stack_top (const num_stack * const stackPtr){
 	return stackPtr->content[stackPtr->top];
+}
+
+void char_stack_init (char_stack * const stackPtr){
+    stackPtr->top = -1;
 }
 
 bool char_stack_isEmpty (const char_stack * const stackPtr){

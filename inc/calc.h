@@ -1,7 +1,7 @@
 #ifndef CALC_H
 #define CALC_H
 
-#define MAX_NUM_STR_LENGTH 4294967296
+#define MAX_NUM_STR_LENGTH 64 /* Setup a reasonable value for it to avoid segmentation fault. */
 
 #include <ev.h>
 #include "stack.h"

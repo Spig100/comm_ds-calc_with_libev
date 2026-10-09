@@ -1,5 +1,5 @@
-#include "../inc/calc.h"
-#include "../inc/stack.h"
+#include "calc.h"
+#include "stack.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
@@ -62,6 +62,9 @@ double calculate(const char * const expression){
     num_stack operand;
     char_stack operator;
 
+    num_stack_init(&operand);
+    char_stack_init(&operator);
+
     uint32_t index = 0;
     
     bool isMD = false;
@@ -88,10 +91,9 @@ double calculate(const char * const expression){
                 int num_length = 0;
                 while(isdigit(expression[index])){
                     num_buf[num_length] = expression[index + num_length];
-                    num_length++;
+                    index++;
                 }
                 num_stack_push(&operand, atoi(num_buf));
-                index += num_length;
                 break;
                 
         }
