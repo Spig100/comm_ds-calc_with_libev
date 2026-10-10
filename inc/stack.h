@@ -10,6 +10,8 @@
  * Probably we'll have another approach to create a generical stack?
  * */
 
+/* As the discussion with ChatGPT on Oct 9, the init function is add to avoid a wild pointer problem. */
+
 /* Stack for integer */
 
 typedef struct {
@@ -17,17 +19,22 @@ typedef struct {
 	double content[STACK_MAX_SIZE];
 } num_stack;
 
+
+void num_stack_init(num_stack * const stackPtr);
 bool num_stack_isEmpty (const num_stack * const stackPtr);
 bool num_stack_isOverflow (const num_stack * const stackPtr);
 double num_stack_pop (num_stack * const stackPtr);
-uint8_t num_stack_push (num_stack * const stackPtr, int32_t x);
+uint8_t num_stack_push (num_stack * const stackPtr, double x);
 double num_stack_top (const num_stack * const stackPtr);
 
-/* Stack for charactor) */
+/* Stack for charactor */
+
 typedef struct {
 	int8_t top;
 	char content[STACK_MAX_SIZE];
 } char_stack;
+
+void char_stack_init (char_stack * const stackPtr);
 
 bool char_stack_isEmpty (const char_stack * const stackPtr);
 bool char_stack_isOverflow (const char_stack * const stackPtr);

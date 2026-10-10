@@ -42,7 +42,8 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
          * This is a function I've asked from ChatGPT on Oct. 8.
          * */
 
-        buf[strcspn(buf, "\n")] = '\0'; // Replacing '\n' for comparision. (This is an idea from ChatGPT.)
+        buf[strcspn(buf, "\n")] = '\0'; 
+        // Replacing '\n' for comparision. (This is an idea from ChatGPT.)
 
         // printf("Debug: CALLBACK SUCCESS.\n");
         
@@ -55,7 +56,10 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
             return;
         }
 
-        printf("Result\t= %.2f\n\n", calculate(buf));
+        // printf("Result\t= %.2f\n\n", calculate(buf));
+        
+        calculate(buf);
+
         printf("Expression\t> ");
         fflush(stdout);
 
