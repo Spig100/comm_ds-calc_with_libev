@@ -11,6 +11,8 @@ double substract (double x, double y);
 double multiply (double x, double y);
 double divide (double x, double y);
 
+uint8_t precedence(char op);
+
 typedef double (*Operation) (double, double);
 
 Operation get_operation (char opr);

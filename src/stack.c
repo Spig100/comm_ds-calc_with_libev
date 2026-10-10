@@ -68,5 +68,5 @@ uint8_t char_stack_push (char_stack * const stackPtr, char x){
 }
 
 char char_stack_top (const char_stack * const stackPtr){
-	return stackPtr->top;
+	return stackPtr->content[stackPtr->top];
 }
