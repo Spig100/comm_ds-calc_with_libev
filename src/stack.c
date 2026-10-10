@@ -19,8 +19,7 @@ bool num_stack_isOverflow (const num_stack * const stackPtr){
 
 double num_stack_pop (num_stack * const stackPtr){
 	if (num_stack_isEmpty(stackPtr)){
-		printf("DEBUG: stack underflow.");
-		return -1;
+		return 0;
 	}
 	double result = stackPtr->content[stackPtr->top--];
 	return result;
@@ -28,10 +27,9 @@ double num_stack_pop (num_stack * const stackPtr){
 
 uint8_t num_stack_push (num_stack * const stackPtr, double x){
 	if (num_stack_isOverflow(stackPtr)) {
-		printf("DEBUG: stack overflow.");
 		return 1;
 	}
-	stackPtr->content[++ stackPtr->top] = x;
+	stackPtr->content[++stackPtr->top] = x;
 	return 0;
 }
 
@@ -55,7 +53,6 @@ bool char_stack_isOverflow (const char_stack * const stackPtr){
 
 char char_stack_pop (char_stack * const stackPtr){
 	if (char_stack_isEmpty(stackPtr)){
-		printf("DEBUG: stack underflow.");
 		return -1;
 	}
 	int8_t result = stackPtr->content[stackPtr->top --];
@@ -64,7 +61,6 @@ char char_stack_pop (char_stack * const stackPtr){
 
 uint8_t char_stack_push (char_stack * const stackPtr, char x){
 	if (char_stack_isOverflow(stackPtr)) {
-		printf("DEBUG: stack overflow.");
 		return 1;
 	}
 	stackPtr->content[++ stackPtr->top] = x;

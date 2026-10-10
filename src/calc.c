@@ -46,16 +46,19 @@ Operation get_operation (char opr){
 }
 
 void flush_operator(num_stack * const operand, char_stack * const operator){
-    int a, b;
+    double a, b;
+    char op;
     while (!char_stack_isEmpty(operator)){
         b = num_stack_pop(operand);
         a = num_stack_pop(operand);
-        num_stack_push(operand, get_operation(char_stack_pop(operator))(a, b));
+        op = char_stack_pop(operator);
+        Operation operation = get_operation(op);
+        num_stack_push(operand, operation(a, b));
     }
 }
 
 double calculate(const char * const expression){
-
+    
     /* TODO: Finish the calculation function with stack (direct infix).
      * */
 
@@ -65,48 +68,57 @@ double calculate(const char * const expression){
     num_stack_init(&operand);
     char_stack_init(&operator);
 
-    uint32_t index = 0;
+    int index = 0;
     
     bool isMD = false;
+    bool isInvalid = false;
     
-    /* FIXME: Fix the infinity loop problem.
-     * */
-
     while(expression[index] != '\0'){
-        switch(expression[index]){
-            
+        switch(expression[index]){ 
             case ' ':
                 break;
             case '+':
             case '-':
-                if (isMD){
+                if (isMD) {
                     flush_operator(&operand, &operator);
-                } 
+                    isMD = false;
+                }
+                char_stack_push(&operator, expression[index]);
+                break;
             case '*':
             case '/':
+                isMD = true;
                 char_stack_push(&operator, expression[index]);
                 break;
             default:
+                if ('0' > expression[index] || '9' < expression[index]){
+                    isInvalid = true;
+                }
                 char num_buf[MAX_NUM_STR_LENGTH];
                 int num_length = 0;
-                while(isdigit(expression[index])){
+                while(isdigit(expression[index + num_length])){
                     num_buf[num_length] = expression[index + num_length];
-                    index++;
+                    num_length++;
                 }
+                num_buf[num_length] = '\0';
                 num_stack_push(&operand, atoi(num_buf));
-                break;
-                
+                index += num_length - 1;
+                break;       
         }
-
-        flush_operator(&operand, &operator);
+        
+        if (isInvalid) {
+            printf("Invalid expression.\n\n");
+            return -1;
+        }
 
         index++;
     
     }
 
-    return num_stack_top(&operand);
+    flush_operator(&operand, &operator);
 
-    // return num_stack_top(&operand);
+    printf ("Result\t\t> %g\n\n", num_stack_top(&operand));
+    return num_stack_top(&operand);
 
 }
 

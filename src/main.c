@@ -56,7 +56,10 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
             return;
         }
 
-        printf("Result\t= %.2f\n\n", calculate(buf));
+        // printf("Result\t= %.2f\n\n", calculate(buf));
+        
+        calculate(buf);
+
         printf("Expression\t> ");
         fflush(stdout);
 
