@@ -7,7 +7,7 @@
 
 ev_io calc_watcher;
 ev_timer timer_watcher;
-
+ev_signal terminate_watcher;
 
 static void calc_cb (EV_P_ ev_io *w, int revents){
     
@@ -67,9 +67,19 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
 
 }
 
+static void terminated_cb(EV_P_ ev_signal *w, int revents){
+    ev_break(EV_A_ EVBREAK_ALL);
+}
+
 int main(){
 
+    printf("\033[?1049h");
+    fflush(stdout);
+    
     struct ev_loop *loop = EV_DEFAULT;
+    
+    ev_signal_init(&terminate_watcher, terminated_cb, SIGINT);
+    ev_signal_start(EV_A_ &terminate_watcher); 
 
     ev_io_init(&calc_watcher, calc_cb, STDIN_FILENO, EV_READ);
     ev_io_start(EV_A_ &calc_watcher); 
@@ -77,13 +87,16 @@ int main(){
 
     /* TODO: Finish the timer function.*/
     
+
     printf("Expression\t> ");
     fflush(stdout);
 
     ev_run(EV_A_ 0);
-
     ev_loop_destroy(EV_A);
 
-	return 0;
+    printf("\033[?1049l");
+    fflush(stdout);
+    
+    return 0;
 
 }

@@ -201,6 +201,11 @@ double calculate(const char * const expression){
         index ++;
     }
 
+    if (num_stack_top(&operand) == NAN) {
+        printf ("Division by zero.\n\n");
+        return -1;
+    }
+
     while (!char_stack_isEmpty(&operator)) {
         flush_operator(&operand, &operator);
     }
