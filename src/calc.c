@@ -45,6 +45,13 @@ Operation get_operation (char opr){
     }
 }
 
+/* Note that we need to realize the flush process to make all the lower-precedence be calculated.
+ *
+ * Originally, I used a while-loop to flush ALL the content of the stack. But it doesn't fit the philosophy of the infix
+ * process. Therefore, after the discussion with ChatGPT, I changed it to a single-round if statement.
+ *
+ * */
+
 void flush_operator(num_stack * const operand, char_stack * const operator){
     double b = num_stack_pop(operand);
     double a = num_stack_pop(operand);
@@ -94,7 +101,7 @@ double calculate(const char * const expression){
      * The procedure will be:
      * 1)   Once the operator is iterated, we'll call a precedence function which will return
      *      a number reflecting the precedence of the current operation.
-     * 2)   Make a 
+     * 2)   Make a if-else statement to determine if we need to flush the operator or not. 
      *
      * OCT 11 with ChatGPT.
      * */
