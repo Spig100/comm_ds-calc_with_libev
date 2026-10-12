@@ -73,7 +73,9 @@ static void terminated_cb(EV_P_ ev_signal *w, int revents){
 
 int main(){
 
-    printf("\033[?1049h");
+    printf("\033[?1049h"); // Change to the alternate screen by ASCII Esc Sequence.
+    printf("\033[6;r");
+
     fflush(stdout);
     
     struct ev_loop *loop = EV_DEFAULT;
@@ -87,7 +89,7 @@ int main(){
 
     /* TODO: Finish the timer function.*/
     
-
+    printf("\033[6;1H");
     printf("Expression\t> ");
     fflush(stdout);
 
