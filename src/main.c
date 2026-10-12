@@ -52,7 +52,7 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
         if ( (strcmp(buf, "exit") == 0) || (strcmp(buf, "quit") == 0)){
             // printf("DEBUG: Process termiated by user.\n");
             ev_io_stop(EV_A_ w);
-            ev_loop(EV_A_ EVBREAK_ALL);
+            ev_break(EV_A_ EVBREAK_ALL);
             return;
         }
 
