@@ -6,6 +6,8 @@
 #define STRING_BUFFER_SIZE 256
 
 static void calc_cb (EV_P_ ev_io *w, int revents);
+static void resize_cb (EV_P_ ev_signal *w, int revents);
 static void terminated_cb(EV_P_ ev_signal *w, int revents);
+static void timer_cb(EV_P_ ev_timer *w, int revents);
 
 #endif

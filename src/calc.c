@@ -80,8 +80,7 @@ uint8_t precedence(char op){
 
 double calculate(const char * const expression){
     
-    /* TODO: Finish the calculation function with stack (direct infix).
-     * */
+    // TODO: Finish escape sequence for segment rolling.
 
     num_stack operand;
     char_stack operator;
@@ -210,7 +209,10 @@ double calculate(const char * const expression){
         flush_operator(&operand, &operator);
     }
 
-
+    if (num_stack_isEmpty(&operand)){
+        printf("Empty input.\n\n");
+        return -1;
+    }
     printf ("Result\t\t> %g\n\n", num_stack_top(&operand));
     return num_stack_top(&operand);
 
