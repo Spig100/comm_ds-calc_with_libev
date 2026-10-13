@@ -17,7 +17,7 @@ typedef double (*Operation) (double, double);
 
 Operation get_operation (char opr);
 
-void flush_operator (num_stack * operand, char_stack * operater);
+int flush_operator (num_stack * operand, char_stack * operater);
 double calculate(const char * const expression);
 
 #endif

@@ -59,15 +59,17 @@ Operation get_operation (char opr){
  *
  * */
 
-void flush_operator(num_stack * const operand, char_stack * const operator){
+int flush_operator(num_stack * const operand, char_stack * const operator){
     char op = char_stack_pop(operator);
     //fprintf(stderr, "Debug: op flush start - %c\n", op);
     Operation operation = get_operation(op);
-    if (operation == NULL) return;
+    if (operation == NULL) return -1;
     double b = num_stack_pop(operand);
     double a = num_stack_pop(operand);
+    if (a == NAN || b == NAN) return -1;
     num_stack_push(operand, operation(a, b));
     //fprintf(stderr, "DEBUG: %g %c %g\n", a, op, b);
+    return 0;
 }
 
 uint8_t precedence(char op){
@@ -210,6 +212,10 @@ double calculate(const char * const expression){
                 while (!char_stack_isEmpty(&operator) && 
                         precedence(char_stack_top(&operator)) >= precedence(expression[index]))
                     flush_operator(&operand, &operator);
+                
+                char_stack_push(&operator, expression[index]);
+                break;
+
             case '(':
                 isBracketed = true;
                 char_stack_push(&operator, expression[index]);
@@ -258,19 +264,21 @@ double calculate(const char * const expression){
     // fprintf(stderr, "Before final flush: empty=%d\n",
     //     char_stack_isEmpty(&operator));
 
+    if (last_operator || char_stack_isEmpty(&operator)) {
+        printf("Invalid expression.\n\n");
+        return -1;
+    }
     while (!char_stack_isEmpty(&operator)) {
         // fprintf(stderr, "Inside loop: top=%d, empty=%d\n",
         //     operator.top, char_stack_isEmpty(&operator));
-        flush_operator(&operand, &operator);
-    }
-
-    if (num_stack_isEmpty(&operand)){
-        printf("Empty input.\n\n");
-        return -1;
+        if(flush_operator(&operand, &operator) == -1) {
+            printf("Invalid expression.\n\n");
+            return -1;
+        }
     }
 
     if ( isnan(num_stack_top(&operand)) ) {
-        printf ("Division by zero.\n\n");
+        printf ("Undefined.\n\n");
         return -1;
     }
 
