@@ -183,6 +183,7 @@ double calculate(const char * const expression){
                 char_stack_push(&operator, expression[index]);
                 break;
             default:
+                last_operator = false;
                 if ('0' > expression[index] || '9' < expression[index]){
                     isInvalid = true;
                     break;
