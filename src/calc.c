@@ -93,6 +93,7 @@ double calculate(const char * const expression){
     // int indexMD = -1;
     // int isMD = false;
     bool isInvalid = false;
+    bool last_operator = false;
 
     /* A better way to deal with the operation order is to create a function that return the 
      * order. That will make the flushing logic more simple.
@@ -165,7 +166,15 @@ double calculate(const char * const expression){
 //                        top_op,
 //                        precedence(top_op),
 //                        precedence(expression[index]));
-//                }   
+//                }
+                
+                if(last_operator){
+                    isInvalid = true;
+                    break;
+                }
+
+                last_operator = true;
+
                 while (!char_stack_isEmpty(&operator) && 
                         precedence(char_stack_top(&operator)) >= precedence(expression[index])
                         ){
