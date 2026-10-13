@@ -53,10 +53,12 @@ Operation get_operation (char opr){
  * */
 
 void flush_operator(num_stack * const operand, char_stack * const operator){
+    char op = char_stack_pop(operator);
+    //fprintf(stderr, "Debug: op flushed - %c\n", op);
+    Operation operation = get_operation(op);
+    if (operation == NULL) return;
     double b = num_stack_pop(operand);
     double a = num_stack_pop(operand);
-    char op = char_stack_pop(operator);
-    Operation operation = get_operation(op);
     num_stack_push(operand, operation(a, b));
     //fprintf(stderr, "DEBUG: %g %c %g\n", a, op, b);
 }
@@ -71,6 +73,8 @@ uint8_t precedence(char op){
         case '/':
             return 2;
             break;
+        case '^':
+            return 3;
         default:
             return 0;
             break;
@@ -176,13 +180,23 @@ double calculate(const char * const expression){
                 last_operator = true;
 
                 while (!char_stack_isEmpty(&operator) && 
-                        precedence(char_stack_top(&operator)) >= precedence(expression[index])
-                        ){
+                        precedence(char_stack_top(&operator)) >= precedence(expression[index]))
                     flush_operator(&operand, &operator);
-                }
+            case '(':
                 char_stack_push(&operator, expression[index]);
                 break;
+            case ')':
+                
+                while ( char_stack_top(&operator) != '(' && !char_stack_isEmpty(&operator)){
+                    // fprintf(stderr, "Debug: top - %c\n", char_stack_top(&operator));
+                    flush_operator(&operand, &operator);
+                }
+
+                char_stack_pop(&operator);
+                break;
+
             default:
+                if (expression[index] == '(') break;
                 last_operator = false;
                 if ('0' > expression[index] || '9' < expression[index]){
                     isInvalid = true;
