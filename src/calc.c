@@ -209,10 +209,6 @@ double calculate(const char * const expression){
         index ++;
     }
 
-    if (num_stack_top(&operand) == NAN) {
-        printf ("Division by zero.\n\n");
-        return -1;
-    }
 
     while (!char_stack_isEmpty(&operator)) {
         flush_operator(&operand, &operator);
@@ -222,6 +218,12 @@ double calculate(const char * const expression){
         printf("Empty input.\n\n");
         return -1;
     }
+
+    if ( isnan(num_stack_top(&operand)) ) {
+        printf ("Division by zero.\n\n");
+        return -1;
+    }
+
     printf ("Result\t\t> %g\n\n", num_stack_top(&operand));
     return num_stack_top(&operand);
 
