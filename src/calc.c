@@ -25,6 +25,10 @@ double divide (double x, double y){
     return x / y;
 }
 
+double power (double x, double y){
+    return pow(x,y);
+}
+
 Operation get_operation (char opr){
     switch(opr){
         case '+':
@@ -38,6 +42,9 @@ Operation get_operation (char opr){
             break;
         case '/':
             return divide;
+            break;
+        case '^':
+            return power;
             break;
         default:
             return NULL;
@@ -54,7 +61,7 @@ Operation get_operation (char opr){
 
 void flush_operator(num_stack * const operand, char_stack * const operator){
     char op = char_stack_pop(operator);
-    //fprintf(stderr, "Debug: op flushed - %c\n", op);
+    //fprintf(stderr, "Debug: op flush start - %c\n", op);
     Operation operation = get_operation(op);
     if (operation == NULL) return;
     double b = num_stack_pop(operand);
@@ -98,6 +105,7 @@ double calculate(const char * const expression){
     // int isMD = false;
     bool isInvalid = false;
     bool last_operator = false;
+    bool isBracketed = false;
 
     /* A better way to deal with the operation order is to create a function that return the 
      * order. That will make the flushing logic more simple.
@@ -156,10 +164,30 @@ double calculate(const char * const expression){
         switch (expression[index]){
             case ' ':
                 break;
-            case '+':
             case '-':
+                if(num_stack_isEmpty(&operand) || last_operator || isBracketed){
+                    //fprintf(stderr, "Debug: negative triggered.");
+                    last_operator = false;
+                    char num_buf[MAX_NUM_STR_LENGTH];
+                    num_buf[0] = '-';
+                    int num_length = 1;
+
+                    while (isdigit(expression[index + num_length]) || 
+                            expression[index + num_length] == '.'){
+                        num_buf[num_length] = expression[index + num_length];
+                        num_length++;
+                    }
+                    num_buf[num_length] = '\0';
+                    //fprintf(stderr, "PUSH: %s\n", num_buf);
+                    num_stack_push(&operand, atof(num_buf));
+                    index += num_length - 1;
+                    break;
+                }
+                // fprintf(stderr, "Debug: minus triggered.");
+            case '+':
             case '*':
             case '/':
+            case '^':
 //                if (!char_stack_isEmpty(&operator)) {
 //                    char top_op = char_stack_top(&operator);
 //
@@ -183,6 +211,7 @@ double calculate(const char * const expression){
                         precedence(char_stack_top(&operator)) >= precedence(expression[index]))
                     flush_operator(&operand, &operator);
             case '(':
+                isBracketed = true;
                 char_stack_push(&operator, expression[index]);
                 break;
             case ')':
@@ -222,10 +251,16 @@ double calculate(const char * const expression){
         }
 
         index ++;
+
+        // fprintf(stderr, "Debug: Current top of the operator is '%c'\n", char_stack_top(&operator));
     }
 
+    // fprintf(stderr, "Before final flush: empty=%d\n",
+    //     char_stack_isEmpty(&operator));
 
     while (!char_stack_isEmpty(&operator)) {
+        // fprintf(stderr, "Inside loop: top=%d, empty=%d\n",
+        //     operator.top, char_stack_isEmpty(&operator));
         flush_operator(&operand, &operator);
     }
 
