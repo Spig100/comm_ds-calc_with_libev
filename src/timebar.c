@@ -14,11 +14,15 @@ void update_time (uint8_t width){
     struct tm * timeinfo;
     time(&raw_time);
     timeinfo = localtime(&raw_time);
+    
+    char time_buf[80];
+    strftime(time_buf, sizeof(time_buf), "Current Time: %Y-%m-%d %H:%M:%S", timeinfo);
+
     printf("\033[s");
     printf("\033[1;1H");
     print_bar(width);
     printf("\033[2:1H");
-    printf( "Current Time: %s", asctime(timeinfo) );
+    printf(time_buf);
     printf("\033[3:1H");
     print_bar(width);
     printf("\033[u");
