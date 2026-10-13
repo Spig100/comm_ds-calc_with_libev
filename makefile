@@ -1,5 +1,5 @@
 CC	:= gcc
-LDFLAGS	:= -lev 
+LDFLAGS	:= -lev -lm 
 
 TARGET	:= calculator
 
