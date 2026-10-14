@@ -282,7 +282,7 @@ double calculate(const char * const expression){
         return -1;
     }
 
-    printf ("Result\t\t> %g\n\n", num_stack_top(&operand));
+    printf ("Result\t\t= %g\n\n", num_stack_top(&operand));
     return num_stack_top(&operand);
 
 }
