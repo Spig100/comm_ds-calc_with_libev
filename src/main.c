@@ -33,8 +33,13 @@ static void calc_cb (EV_P_ ev_io *w, int revents){
      * So we need to:
      * - Create a buffer to save the current input.
      * - Make a logic to detect if '\n' is input or not.*/
-    
+
     char buf[STRING_BUFFER_SIZE];
+    
+    if (feof(stdin))
+        // EOF detected
+        ev_break(EV_A_ EVBREAK_ALL);
+
 
     if (fgets(buf, sizeof(buf), stdin) == NULL)
         
